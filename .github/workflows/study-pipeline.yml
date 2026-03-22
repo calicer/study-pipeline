@@ -1,69 +1,40 @@
 name: Daily Study Pipeline
 
 on:
-  schedule:
-    # 9:00 AM IST = 3:30 AM UTC
-    - cron: '30 3 * * *'
-
-  # Manual trigger from GitHub Actions tab
   workflow_dispatch:
     inputs:
       topic:
         description: 'Topic (leave empty for auto-pick)'
         required: false
         default: ''
+  schedule:
+    - cron: '30 3 * * *'
 
 jobs:
   study:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
       YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
       GOOGLE_SEARCH_API_KEY: ${{ secrets.GOOGLE_SEARCH_API_KEY }}
       GOOGLE_SEARCH_ENGINE_ID: ${{ secrets.GOOGLE_SEARCH_ENGINE_ID }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
       NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
       LLM_PROVIDER: groq
-
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
           cache: 'pip'
-
       - run: pip install -r requirements.txt
-
-      # If manual trigger with a specific topic
-      - name: Run with specific topic
-        if: github.event_name == 'workflow_dispatch' && github.event.inputs.topic != ''
-        run: python pipeline.py "${{ github.event.inputs.topic }}"
-
-      # If manual trigger without topic OR daily schedule → auto-pick
-      - name: Run with auto topic
-        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.topic == '')
-        run: python pipeline.py --auto
-
-      # Save the updated topics.json (so index advances)
-      - name: Commit updated topic index
-        if: always()
+      - name: Run pipeline
         run: |
-          git config user.name "study-bot"
-          git config user.email "bot@study-pipeline"
-          git add topics.json generated_notes/ || true
-          git diff --staged --quiet || git commit -m "📚 Study notes: $(date +%Y-%m-%d)"
-          git push || true
-
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: notes-${{ github.run_number }}
-          path: generated_notes/
-          retention-days: 30
+          if [ -n "${{ github.event.inputs.topic }}" ]; then
+            python pipeline.py "${{ github.event.inputs.topic }}"
+          else
+            python pipeline.py --auto
+          fi
