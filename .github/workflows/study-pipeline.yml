@@ -3,7 +3,7 @@ name: Daily Study Pipeline
 on:
   schedule:
     # 9:00 AM IST = 3:30 AM UTC
-    - cron: '41 14 * * *'
+    - cron: '45 14 * * *'
 
   # Manual trigger from GitHub Actions tab
   workflow_dispatch:
