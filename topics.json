@@ -1,0 +1,52 @@
+{
+  "categories": {
+    "java_backend": [
+      "Java concurrency \u2014 threads, locks, and CompletableFuture",
+      "Java memory model and garbage collection tuning",
+      "Spring Boot auto-configuration internals",
+      "Spring Security \u2014 OAuth2 and JWT authentication",
+      "JPA and Hibernate performance \u2014 N+1 queries, batch fetching, caching",
+      "Java functional programming \u2014 streams, Optional, and collectors",
+      "Spring Boot actuator and production monitoring",
+      "Microservices communication \u2014 REST vs gRPC vs message queues",
+      "Database connection pooling with HikariCP",
+      "Java records, sealed classes, and pattern matching"
+    ],
+    "system_design": [
+      "CAP theorem and distributed consistency models",
+      "Database indexing strategies \u2014 B-tree, hash, GIN, GiST",
+      "Load balancing algorithms \u2014 round robin, least connections, consistent hashing",
+      "Caching strategies \u2014 write-through, write-back, cache-aside",
+      "Message queues \u2014 Kafka vs RabbitMQ vs Redis Streams",
+      "API rate limiting and throttling patterns",
+      "Database sharding strategies and trade-offs",
+      "Circuit breaker pattern and resilience in microservices",
+      "Event sourcing and CQRS pattern",
+      "Distributed tracing with OpenTelemetry"
+    ],
+    "python_ai": [
+      "Python asyncio \u2014 event loop, tasks, and gather patterns",
+      "Building AI agents with tool calling and function execution",
+      "RAG pipeline \u2014 retrieval augmented generation from scratch",
+      "LangChain expression language (LCEL) chains and runnables",
+      "Vector databases \u2014 embeddings, similarity search, and HNSW",
+      "Prompt engineering \u2014 chain of thought, few-shot, and structured output",
+      "Python decorators and metaclasses deep dive",
+      "FastAPI \u2014 async endpoints, dependency injection, and middleware"
+    ],
+    "devops": [
+      "Docker multi-stage builds and image optimization",
+      "Kubernetes pods, services, and deployments explained",
+      "CI/CD pipeline design \u2014 GitHub Actions advanced workflows",
+      "PostgreSQL query optimization and EXPLAIN ANALYZE",
+      "Linux performance debugging \u2014 top, strace, perf, flamegraphs",
+      "Terraform infrastructure as code fundamentals",
+      "Nginx reverse proxy and load balancing configuration"
+    ]
+  },
+  "settings": {
+    "rotation": "sequential",
+    "current_index": 1,
+    "last_run_date": "2026-03-22"
+  }
+}
